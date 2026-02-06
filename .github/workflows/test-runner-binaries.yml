@@ -1,0 +1,64 @@
+name: Test Runner Binaries
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test-binaries:
+    runs-on: self-hosted
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Test Node.js Binary
+        run: |
+          echo "=== Testing for Node.js binary ==="
+          if command -v node >/dev/null 2>&1; then
+            echo "✓ Node.js is installed"
+            echo "Node.js version: $(node --version)"
+            echo "Node.js path: $(which node)"
+          else
+            echo "✗ Node.js is NOT installed"
+            exit 1
+          fi
+      
+      - name: Test Meteor.js Binary
+        run: |
+          echo "=== Testing for Meteor.js binary ==="
+          if command -v meteor >/dev/null 2>&1; then
+            echo "✓ Meteor.js is installed"
+            echo "Meteor.js version: $(meteor --version)"
+            echo "Meteor.js path: $(which meteor)"
+          else
+            echo "✗ Meteor.js is NOT installed"
+            exit 1
+          fi
+      
+      - name: Test Python Binary
+        run: |
+          echo "=== Testing for Python binary ==="
+          if command -v python >/dev/null 2>&1; then
+            echo "✓ Python is installed"
+            echo "Python version: $(python --version)"
+            echo "Python path: $(which python)"
+          elif command -v python3 >/dev/null 2>&1; then
+            echo "✓ Python3 is installed"
+            echo "Python3 version: $(python3 --version)"
+            echo "Python3 path: $(which python3)"
+          else
+            echo "✗ Python is NOT installed"
+            exit 1
+          fi
+      
+      - name: Summary
+        if: always()
+        run: |
+          echo "=== Binary Test Summary ==="
+          echo "All required binaries tested on self-hosted runner"
+          echo "Check the logs above for details"
