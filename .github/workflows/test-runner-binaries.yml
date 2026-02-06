@@ -10,7 +10,7 @@ on:
 
 jobs:
   test-binaries:
-    runs-on: self-hosted
+    runs-on: [self-hosted, docker, linux, docker-runner]
     permissions:
       contents: read
     
