@@ -1,0 +1,15 @@
+name: Test Runner Binaries
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: docker-runner
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run tests
+        run: echo "Running tests on docker-runner"
