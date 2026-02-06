@@ -11,6 +11,8 @@ on:
 jobs:
   test-binaries:
     runs-on: self-hosted
+    permissions:
+      contents: read
     
     steps:
       - name: Checkout code
